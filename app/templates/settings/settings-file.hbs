@@ -165,7 +165,8 @@
     <label for="settings__file-kdf">{{res 'setFileKdfParams'}}</label>
     <select class="settings__select input-base" id="settings__file-kdf" {{#ifneq formatVersion 4}}disabled{{/ifneq}}>
         <option value="Aes" {{#ifeq kdfName 'AES'}}selected{{/ifeq}}>AES</option>
-        {{#ifeq formatVersion 4}}<option value="Argon2" {{#ifeq kdfName 'Argon2'}}selected{{/ifeq}}>Argon2</option>{{/ifeq}}
+        {{#ifeq formatVersion 4}}<option value="Argon2d" {{#ifeq kdfName 'Argon2d'}}selected{{/ifeq}}>Argon2d</option>{{/ifeq}}
+        {{#ifeq formatVersion 4}}<option value="Argon2id" {{#ifeq kdfName 'Argon2id'}}selected{{/ifeq}}>Argon2id</option>{{/ifeq}}
     </select>
     {{#if keyEncryptionRounds}}
     <label for="settings__file-key-rounds">{{res 'setFileRounds'}}:</label>
@@ -178,7 +179,7 @@
                        id="settings__file-kdf-rounds" data-field="rounds" value="{{kdfParameters.rounds}}" maxlength="10" />
             </div>
         {{/ifeq}}
-        {{#ifeq kdfName 'Argon2'}}
+        {{#if isArgon2Kdf}}
             <div class="settings__row">
                 <div class="settings__col-small">
                     <label class="settings__col-small-label" for="settings__file-kdf-iter">{{res 'setFileKdfParamsIter'}}:</label>
@@ -196,7 +197,7 @@
                            data-field="parallelism" id="settings__file-kdf-par" value="{{kdfParameters.parallelism}}" maxlength="2" />
                 </div>
             </div>
-        {{/ifeq}}
+        {{/if}}
     {{/if}}
 
     <label for="settings__file-key-change-force">{{res 'setFileKeyChangeForce'}}:</label>
